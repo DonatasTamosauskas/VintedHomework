@@ -1,0 +1,12 @@
+{
+	"name": "ClothingCategorization",
+	"dockerFile": "Dockerfile",
+	"appPort": 5000,
+	"context": "..",
+	"extensions": [
+		"ms-python.python"
+	],
+	"settings": {
+		"python.pythonPath": "/usr/local/bin/python"
+	}
+}
