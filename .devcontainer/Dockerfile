@@ -1,9 +1,10 @@
 # FROM python:3
 FROM pytorch/pytorch
 
-# Install pylint
-RUN pip install pylint
-
+RUN pip install torchvision
+RUN pip install fastai
+RUN pip install flask
+RUN pip install Pillow
 
 # Configure apt
 ENV DEBIAN_FRONTEND=noninteractive
