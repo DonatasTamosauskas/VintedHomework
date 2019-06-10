@@ -9,7 +9,7 @@ def prep_image(image, transforms):
     tensor = transforms(img)
     return tensor[None, :, :, :]
     
-def get_model_and_classes(pkl_location, pkl_name):
+def get_model_and_classes(pkl_location, pkl_name, add_softmax=True):
     """Get the trained pytorch model and classes.""" 
     learner = load_learner(pkl_location, pkl_name)
     classes = learner.data.classes
