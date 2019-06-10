@@ -1,7 +1,8 @@
 # FROM python:3
 FROM pytorch/pytorch
 
-RUN pip install torchvision
+RUN pip install https://download.pytorch.org/whl/cpu/torch-1.1.0-cp36-cp36m-linux_x86_64.whl
+RUN pip install https://download.pytorch.org/whl/cpu/torchvision-0.3.0-cp36-cp36m-linux_x86_64.whl
 RUN pip install fastai
 RUN pip install flask
 RUN pip install Pillow
