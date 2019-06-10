@@ -1,4 +1,4 @@
-from flask import Flask, request, make_response
+from flask import Flask, request, jsonify
 from classifiers.type_classifier import TypeClassifier
 
 app = Flask(__name__)
@@ -9,10 +9,9 @@ cat_classifier = TypeClassifier()
 def classify_clothing_type():
     """Classify given image into one of clothing categories"""
     image_file = _get_image_from_request(request)
-
     predictions = cat_classifier.classify(image_file)
-    print(predictions)
-    return _format_response("Placeholder predicions")
+    print("(Incoming image file was predicted as {}.".format(predictions))
+    return jsonify(predictions)
 
 def _get_image_from_request(received_req):
     if (received_req.files is not None 
@@ -20,10 +19,6 @@ def _get_image_from_request(received_req):
         return request.files['image'].stream._file
 
     # TODO: Add different image sending handling
-
-def _format_response(predictions):
-    # TODO: Create a JSON reply
-    return make_response(predictions)
     
 
 

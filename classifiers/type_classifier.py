@@ -36,13 +36,14 @@ class TypeClassifier:
                                 std=[0.229, 0.224, 0.225])
         ])
         
-        self.model = self._get_model()
+        self.model, self.classes = self._get_model_and_classes()
 
     def classify(self, file):
         """Classify given image stream into one of clothing type categories. Return a dict of probabilites"""
         preped_img = self._prep_image(file)
-        predictions = self.model(preped_img)
-        return predictions
+        prediction_tensor = self.model(preped_img)
+        predictions = prediction_tensor.data.cpu().numpy()[0].tolist()
+        return {"predictons": predictions, "classes": self.classes}
       
     def _prep_image(self, image):
         """Prepare image for inference by resizing, converting to tensor and normalizing"""
@@ -50,11 +51,11 @@ class TypeClassifier:
         tensor = self.transform(img)
         return tensor[None, :, :, :]
         
-    def _get_model(self):
+    def _get_model_and_classes(self):
         learner = load_learner(LEARNER_PKL_LOC, LEARNER_PKL_NAME)
-        self.classes = learner.data.classes
+        classes = learner.data.classes
         model = learner.model
         model.training = False
         model.cpu()
         model = Sequential(model, Softmax(1))
-        return model
+        return model, classes
