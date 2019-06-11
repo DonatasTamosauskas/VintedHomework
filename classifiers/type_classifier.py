@@ -28,4 +28,4 @@ class TypeClassifier:
         preped_img = prep_image(file, self.transform)
         prediction_tensor = self.model(preped_img)
         predictions = prediction_tensor.data.cpu().numpy()[0].tolist()
-        return {"predictons": predictions, "classes": self.classes}
+        return {"predictions": predictions, "classes": self.classes}
